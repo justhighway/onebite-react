@@ -1,0 +1,18 @@
+body {
+  padding: 20px;
+}
+.App {
+  margin: 0 auto;
+  width: 400px;
+}
+
+.App > section {
+  padding: 20px;
+  background-color: rgba(240, 240, 240);
+  border-radius: 18px;
+  margin: 20px 0;
+}
+
+.controller {
+  margin: 0 auto;
+}
