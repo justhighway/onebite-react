@@ -67,15 +67,13 @@ export default function App() {
     });
   }, []);
 
-  const memoizedDispatch = useMemo(() => {
-    return { onCreate, onDelete, onUpdateContent, onUpdateStatus };
-  }, []);
-
   return (
     <div className="App">
       <Header />
       <TodoStateContext.Provider value={todos}>
-        <TodoDispatchContext.Provider value={memoizedDispatch}>
+        <TodoDispatchContext.Provider
+          value={{ onCreate, onDelete, onUpdateContent, onUpdateStatus }}
+        >
           <Editor />
           <List />
         </TodoDispatchContext.Provider>
