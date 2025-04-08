@@ -1,28 +1,17 @@
-import { useMemo, useState } from "react";
+import { useContext, useState } from "react";
 import "./List.css";
 import TodoItem from "./TodoItem";
 import { TodoCounter } from "./TodoCounter";
 import { useCounter } from "../hooks/useCounter";
+import { TodoStateContext } from "../App";
 
-export default function List({
-  todos,
-  onUpdateStatus,
-  onUpdateContent,
-  onDelete,
-}) {
+export default function List() {
+  const todos = useContext(TodoStateContext);
   const [search, setSearch] = useState("");
   const { allTasks, wipTasks, yetTasks } = useCounter({ todos });
 
   const renderTodoItem = (todo) => {
-    return (
-      <TodoItem
-        key={todo.id}
-        {...todo}
-        onUpdateStatus={onUpdateStatus}
-        onUpdateContent={onUpdateContent}
-        onDelete={onDelete}
-      />
-    );
+    return <TodoItem key={todo.id} {...todo} />;
   };
 
   const onSearchChange = (e) => {

@@ -1,7 +1,9 @@
-import { useRef, useState } from "react";
+import { memo, useContext, useRef, useState } from "react";
 import "./Editor.css";
+import { TodoDispatchContext } from "../App";
 
-export default function Editor({ onCreate }) {
+const Editor = () => {
+  const { onCreate } = useContext(TodoDispatchContext);
   const [content, setContent] = useState("");
   const contentRef = useRef();
 
@@ -41,4 +43,6 @@ export default function Editor({ onCreate }) {
       <button onClick={onSubmit}>추가</button>
     </div>
   );
-}
+};
+
+export default memo(Editor);

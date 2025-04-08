@@ -1,16 +1,11 @@
-import { memo, useRef, useState } from "react";
+import { memo, useContext, useRef, useState } from "react";
 import "./TodoItem.css";
+import { TodoDispatchContext } from "../App";
 
-const TodoItem = ({
-  id,
-  isDone,
-  content,
-  date,
-  onUpdateStatus,
-  onUpdateContent,
-  onDelete,
-}) => {
-  const [value, setValue] = useState("");
+const TodoItem = ({ id, isDone, content, date }) => {
+  const { onUpdateStatus, onUpdateContent, onDelete } =
+    useContext(TodoDispatchContext);
+  const [value, setValue] = useState(content);
   const [isEditing, setIsEditing] = useState(false);
   const inputRef = useRef();
 
