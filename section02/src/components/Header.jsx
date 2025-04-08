@@ -6,8 +6,8 @@ const Header = () => {
 
   return (
     <div className="header">
-      <h3>오늘은 🗓️</h3>
-      <h1>{today}</h1>
+      <h1>TO DO LIST</h1>
+      <h3>{today}</h3>
     </div>
   );
 };

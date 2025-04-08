@@ -1,8 +1,25 @@
 .header {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  width: 100%;
 }
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+}
+
 .header > h1 {
-  color: rgb(37, 147, 255);
+  color: rgb(20, 100, 255);
+  margin: 0 auto;
+}
+
+.header > h3 {
+  text-align: right;
+  color: rgb(100, 100, 100);
+  margin-top: 20px;
 }

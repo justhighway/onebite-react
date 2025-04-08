@@ -1,9 +1,31 @@
-import { memo } from "react";
+import { memo, useRef, useState } from "react";
 import "./TodoItem.css";
 
-const TodoItem = ({ id, isDone, content, date, onUpdate, onDelete }) => {
+const TodoItem = ({
+  id,
+  isDone,
+  content,
+  date,
+  onUpdateStatus,
+  onUpdateContent,
+  onDelete,
+}) => {
+  const [value, setValue] = useState("");
+  const [isEditing, setIsEditing] = useState(false);
+  const inputRef = useRef();
+
   const handleChangeCheckbox = () => {
-    onUpdate(id);
+    onUpdateStatus(id);
+  };
+
+  const onChangeInput = (e) => {
+    setValue(inputRef.current.value);
+    console.log(value);
+  };
+
+  const handleChangeContent = () => {
+    setIsEditing(!isEditing);
+    onUpdateContent(id, value);
   };
 
   const handleDelete = () => {
@@ -13,8 +35,21 @@ const TodoItem = ({ id, isDone, content, date, onUpdate, onDelete }) => {
   return (
     <div className="TodoItem">
       <input onChange={handleChangeCheckbox} type="checkbox" checked={isDone} />
-      <div className="content">{content}</div>
+
+      {isEditing ? (
+        <input
+          ref={inputRef}
+          className="content"
+          value={value}
+          onChange={onChangeInput}
+        ></input>
+      ) : (
+        <div className="content">{content}</div>
+      )}
       <div className="date">{new Date(date).toLocaleDateString()}</div>
+      <button onClick={handleChangeContent}>
+        {isEditing ? "완료" : "수정"}
+      </button>
       <button onClick={handleDelete}>삭제</button>
     </div>
   );

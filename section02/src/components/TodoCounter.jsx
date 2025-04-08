@@ -1,7 +1,6 @@
 import React from "react";
 
-export const TodoCounter = ({ taskCounter }) => {
-  const { allTasks, wipTasks, yetTasks } = taskCounter;
+export const TodoCounter = ({ allTasks, wipTasks, yetTasks }) => {
   return (
     <div>
       <div>전체: {allTasks}</div>

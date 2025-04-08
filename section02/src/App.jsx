@@ -8,9 +8,15 @@ function reducer(state, action) {
   switch (action.type) {
     case "CREATE":
       return [action.data, ...state];
-    case "UPDATE":
+    case "UPDATE_STATUS":
       return state.map((todo) =>
         todo.id === action.targetId ? { ...todo, isDone: !todo.isDone } : todo
+      );
+    case "UPDATE_CONTENT":
+      return state.map((todo) =>
+        todo.id === action.targetId
+          ? { ...todo, content: action.content }
+          : todo
       );
     case "DELETE":
       return state.filter((todo) => todo.id !== action.targetId);
@@ -36,10 +42,18 @@ export default function App() {
     });
   }, []);
 
-  const onUpdate = useCallback((targetId) => {
+  const onUpdateStatus = useCallback((targetId) => {
     dispatch({
-      type: "UPDATE",
+      type: "UPDATE_STATUS",
       targetId: targetId,
+    });
+  }, []);
+
+  const onUpdateContent = useCallback((targetId, content) => {
+    dispatch({
+      type: "UPDATE_CONTENT",
+      targetId: targetId,
+      content: content,
     });
   }, []);
 
@@ -54,7 +68,12 @@ export default function App() {
     <div className="App">
       <Header />
       <Editor onCreate={onCreate} />
-      <List todos={todos} onUpdate={onUpdate} onDelete={onDelete} />
+      <List
+        todos={todos}
+        onUpdateStatus={onUpdateStatus}
+        onUpdateContent={onUpdateContent}
+        onDelete={onDelete}
+      />
     </div>
   );
 }

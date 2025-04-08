@@ -2,16 +2,24 @@ import { useMemo, useState } from "react";
 import "./List.css";
 import TodoItem from "./TodoItem";
 import { TodoCounter } from "./TodoCounter";
+import { useCounter } from "../hooks/useCounter";
 
-export default function List({ todos, onUpdate, onDelete }) {
+export default function List({
+  todos,
+  onUpdateStatus,
+  onUpdateContent,
+  onDelete,
+}) {
   const [search, setSearch] = useState("");
+  const { allTasks, wipTasks, yetTasks } = useCounter({ todos });
 
   const renderTodoItem = (todo) => {
     return (
       <TodoItem
         key={todo.id}
         {...todo}
-        onUpdate={onUpdate}
+        onUpdateStatus={onUpdateStatus}
+        onUpdateContent={onUpdateContent}
         onDelete={onDelete}
       />
     );
@@ -32,19 +40,14 @@ export default function List({ todos, onUpdate, onDelete }) {
 
   const filteredData = getFilteredData();
 
-  const taskCounterr = useMemo(() => {
-    console.log("리렌더됨!");
-    const allTasks = todos.length;
-    const wipTasks = todos.filter((todo) => todo.isDone).length;
-    const yetTasks = allTasks - wipTasks;
-
-    return { allTasks, wipTasks, yetTasks };
-  }, [todos]);
-
   return (
     <div className="list">
       <h3>Todo List</h3>
-      <TodoCounter taskCounter={taskCounterr} />
+      <TodoCounter
+        allTasks={allTasks}
+        wipTasks={wipTasks}
+        yetTasks={yetTasks}
+      />
       <input
         type="text"
         placeholder="검색어를 입력하세요"
